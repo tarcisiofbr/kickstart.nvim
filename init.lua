@@ -191,9 +191,13 @@ vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower win
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
 -- My keymaps
-vim.keymap.set('n', '<leader>b', ':buffers<CR>:buffer ', { desc = 'Move focus to the upper window' })
-vim.keymap.set('n', '<leader>q', ':bprevious<CR>', { desc = 'Move focus to the upper window' })
-vim.keymap.set('n', '<leader>e', ':e ', { desc = 'Move focus to the upper window' })
+vim.keymap.set('n', '<leader>b', ':buffers<CR>:buffer ', { desc = '' })
+vim.keymap.set('n', '<leader>q', ':bprevious<CR>', { desc = '' })
+vim.keymap.set('n', '<leader>e', ':e ', { desc = '' })
+
+-- -- R
+vim.keymap.set('n', '<leader>R', ':split<CR>:terminal<CR>imamba activate smallrna<CR>R<CR><C-\\><C-n><C-w>k', { desc = 'Initiate R env' })
+vim.keymap.set('v', '<leader>r', 'y<C-w>j', { desc = 'Initiate R env' })
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
