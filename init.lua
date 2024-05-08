@@ -197,7 +197,8 @@ vim.keymap.set('n', '<leader>e', ':e ', { desc = '' })
 
 -- -- R
 vim.keymap.set('n', '<leader>R', ':split<CR>:terminal<CR>imamba activate smallrna<CR>R<CR><C-\\><C-n><C-w>k', { desc = 'Initiate R env' })
-vim.keymap.set('v', '<leader>r', 'y<C-w>j', { desc = 'Initiate R env' })
+vim.keymap.set('n', '<leader>x', 'yy<C-w>jpi<CR><C-\\><C-n><C-w>kj', { desc = 'Execute line of code' })
+vim.keymap.set('v', '<leader>x', 'y<C-w>jpi<CR><C-\\><C-n><C-w>k', { desc = 'Execute selected block of code' })
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
@@ -234,6 +235,27 @@ vim.opt.rtp:prepend(lazypath)
 --
 -- NOTE: Here is where you install your plugins.
 require('lazy').setup({
+  {
+    'R-nvim/R.nvim',
+    lazy = false,
+  },
+  {
+    'nvim-treesitter/nvim-treesitter',
+    run = ':TSUpdate',
+    config = function()
+      require('nvim-treesitter.configs').setup {
+        ensure_installed = { 'markdown', 'markdown_inline', 'r', 'rnoweb' },
+      }
+    end,
+  },
+  'R-nvim/cmp-r',
+  {
+    'hrsh7th/nvim-cmp',
+    config = function()
+      require('cmp').setup { sources = { { name = 'cmp_r' } } }
+      require('cmp_r').setup {}
+    end,
+  },
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
   'tpope/vim-sleuth', -- Detect tabstop and shiftwidth automatically
 
@@ -921,9 +943,9 @@ require('lazy').setup({
 -- vim: ts=2 sts=2 sw=2 et
 
 -- Adding snakemake filetype
-vim.filetype.add({
-  pattern={
-    ["Snakefile"] = "snakemake",
-    [".*smk"] = "snakemake"
-  }
-})
+vim.filetype.add {
+  pattern = {
+    ['Snakefile'] = 'snakemake',
+    ['.*smk'] = 'snakemake',
+  },
+}
